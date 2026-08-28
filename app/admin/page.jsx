@@ -1,43 +1,37 @@
 "use client";
 import { useState } from "react";
 
-export default function AdminPage() {
-  const [imageUrl, setImageUrl] = useState("");
+export default function Admin() {
+  const [url, setUrl] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleUpload = async (e) => {
+  const upload = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
-
     setLoading(true);
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("upload_preset", process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET);
+    const data = new FormData();
+    data.append("file", file);
+    data.append("upload_preset", "online_shop");
 
-    const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
-    const res = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
+    const res = await fetch("https://api.cloudinary.com/v1_1/tadcjo7u/image/upload", {
       method: "POST",
-      body: formData,
+      body: data
     });
-
-    const data = await res.json();
-    setImageUrl(data.secure_url);
+    const result = await res.json();
+    setUrl(result.secure_url);
     setLoading(false);
   };
 
   return (
     <div className="p-10 max-w-xl mx-auto">
       <h1 className="text-2xl font-bold mb-5">Product Thlalak Upload</h1>
-
-      <input type="file" onChange={handleUpload} className="border p-2 w-full" />
-
-      {loading && <p className="mt-4 text-blue-500">Uploading mek...</p>}
-
-      {imageUrl && (
+      <input type="file" onChange={upload} className="border p-2 w-full" />
+      {loading && <p className="mt-4">Uploading...</p>}
+      {url && (
         <div className="mt-5">
-          <p className="text-green-600 font-bold">A lut ta!</p>
-          <img src={imageUrl} className="w-full mt-2 rounded border" />
-          <p className="text-xs break-all mt-2 bg-gray-100 p-2">{imageUrl}</p>
+          <img src={url} className="w-full rounded border" />
+          <p className="mt-3 bg-gray-100 p-2 break-all text-sm">{url}</p>
+          <p className="mt-2 text-green-600 font-bold">He URL hi copy la, i shop ah hmang rawh!</p>
         </div>
       )}
     </div>
