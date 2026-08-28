@@ -2,7 +2,7 @@
 import { useState } from "react";
 
 const initialProducts = [
-  { id: 1, name: "T-Shirt Mawi", price: 350, image: "https://via.placeholder.com/300" },
+  { id: 1, name: "T-Shirt Mawi", price: 350, image: "https://res.cloudinary.com/tadcjo7u/image/upload/v1787914045/WhatsApp_Image_2026-08-27_at_7.28.28_PM.jpg" },
   { id: 2, name: "Bag Chhe Lo", price: 850, image: "https://via.placeholder.com/300" },
   { id: 3, name: "Sneakers", price: 1500, image: "https://via.placeholder.com/300" },
 ];
